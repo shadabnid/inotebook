@@ -18,6 +18,8 @@ router.post('/', [
     body('name', "Enter valid name").isLength({ min: 3 })
 ], async (req, res) => {
     //if any error occured then return bad request
+    const {email,name,password} = req.body;
+     
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -33,12 +35,16 @@ router.post('/', [
         ===================*/
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(req.body.password, salt);
+        const Data ={
+            email,name,password
+        };
 
-        user = await User.create({
+       /* user = await User.create({
             name: req.body.name,
             email: req.body.email,
             password: secPass
-        })
+        })*/
+         user = await User.create(Data);
 
         const data = {
             user: {

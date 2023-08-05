@@ -1,17 +1,21 @@
 const mongoose= require('mongoose');
-
+const { Schema } = mongoose;
 const userSchema = new Schema({
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'user'
+    },
     title:{
-        type:string,
+        type:String,
         require:true
     },
     description:{
-        type:string,
+        type:String,
         require:true,
         
     },
     tag:{
-        type:string,
+        type:String,
         default:"general"
     },
     date:{
